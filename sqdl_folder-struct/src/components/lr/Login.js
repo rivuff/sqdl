@@ -209,8 +209,11 @@ function Form(props) {
                 </Typography>
                 <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" id='teacherRegister'>
                     <div className="mb-4 flex flex-col gap-6">
-                        <Input size="lg" id='teacherEmail' label="Email" />
+                        <Input size="lg" id='teacherEmail' label="Email" type="email"/>
                         <Input type="password" id='teacherPassword' size="lg" label="Password" />
+                        {
+                            //address and name add here
+                        }
                     </div>
 
                         <Button className="mt-6" fullWidth onClick={() => { postData('teacher') }}>
