@@ -12,7 +12,7 @@ import Register from './components/lr/Register';
 const AppLayout = ()=>{
   return (
     <div>
-    <NavBar/>
+    <NavBar navList = {{about: 'About', login: 'Login', register: 'Register'}}/> 
     <Outlet/>
     <Footer/>
     </div>
