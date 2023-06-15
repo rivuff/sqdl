@@ -18,38 +18,109 @@ import {
     UserCircleIcon,
     Cog6ToothIcon,
 } from "@heroicons/react/24/solid";
+import axios from 'axios'
 
 
-function submitLogin(type) {
-    if (type == 'student') {
-        var enrollment = document.getElementById('studentEnrollment').value
-        var password = document.getElementById('studentPassword').value
-        var post_val = {
-            'type':type,
-            'enrollment': enrollment,
-            'password': password,
+const postData =  async(type)=>{
+    //e.preventDefault();
+    // let post_val = {
+    // 'type': type,
+    // 'email': email,
+    // 'password': password
+    // }
+
+    if (type === 'teacher') {
+        const email = document.getElementById('teacherEmail').value;
+        const password = document.getElementById('teacherPassword').value;
+        const postVal = {
+          email: email,
+          password: password
+        };
+
+        console.log(postVal.password);
+    
+        try {
+            const response = await axios.post('http://localhost:5000/api/v1/teacher/login', postVal);
+            const data = response.data;
+            console.log(response);
+            if (data) {
+                console.log('Sign in successful');
+            } else {
+                console.log('Data not found');
+            }
+          localStorage.setItem('userInfo', JSON.stringify(data));
+        } catch (error) {
+          console.log("User not found");
+          //throw error; // Re-throw the error to handle it further up the call stack
         }
     }
-    else if (type == 'teacher') {
-        var email = document.getElementById('teacherEmail').value
-        var password = document.getElementById('teacherPassword').value
-        var post_val = {
-            'type': type,
-            'email': email,
-            'password': password
+    else if(type==='student'){
+    try{
+        let enrollment = document.getElementById('studentEnrollment').value
+        let password = document.getElementById('studentPassword').value
+        // var post_val = {
+        //     'type':type,
+        //     'enrollment': enrollment,
+        //     'password': password,
+        // }
+        const res ={
+            headers:{
+                "Content-type":"application/json",
+            }
         }
+
+        const {data} = await axios.post(`http://localhost:5000/api/v1/student/login`, {enrollment, password},res)
+       
+        localStorage.setItem('userInfo', JSON.stringify(data));
+    
+        
+        // props.set(true);
+    } catch (error) {
+        console.log(error);
+        throw error
     }
-    //submit post_val using axios
-    //route to next page with return, disable register button
-    console.log(post_val)
-    return null
+    }
+
+   
 }
+
+
+// function submitLogin(type) {
+//     if (type === 'student') {
+        
+//     }
+//     else if (type === 'teacher') {
+//         try {
+//             let email = document.getElementById('teacherEmail').value
+//             let password = document.getElementById('teacherPassword').value
+//             let post_val = {
+//             'type': type,
+//             'email': email,
+//             'password': password
+//         }
+
+            
+//         } catch (error) {
+            
+//         }
+        
+       
+//     }
+
+
+    
+
+//     //submit post_val using axios
+//     //route to next page with return, disable register button
+//     console.log(post_val)
+//     return null
+// }
 //component design
 
 const Tabs = ({ color }) => {
     const [openTab, setOpenTab] = React.useState(1);
     return (
-        <>
+        <div>
             <div className="flex flex-wrap">
                 <div className="w-full">
                     <ul
@@ -111,7 +182,7 @@ const Tabs = ({ color }) => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 
@@ -131,7 +202,7 @@ function Form(props) {
                         <Input type="password" id='studentPassword' size="lg" label="Password" />
                     </div>
 
-                    <Button className="mt-6" fullWidth onClick={() => { submitLogin('student') }}>
+                    <Button className="mt-6" fullWidth onClick={() => { postData('student') }}>
                         Login
                     </Button>
 
@@ -154,7 +225,7 @@ function Form(props) {
                         <Input type="password" id='teacherPassword' size="lg" label="Password" />
                     </div>
 
-                        <Button className="mt-6" fullWidth onClick={() => { submitLogin('teacher') }}>
+                        <Button className="mt-6" fullWidth onClick={() => { postData('teacher') }}>
                             Login
                         </Button>
                 </form>

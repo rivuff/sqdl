@@ -1,23 +1,43 @@
 import './App.css';
-// import NavBar from './components/homepage/NavBar.jsx'
-// import Footer from './components/homepage/Footer.js'
-// import SQDLCarousel from './components/homepage/Carousel.js'
+import { Outlet } from 'react-router-dom';
+import ReactDOM from 'react-dom/client'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import NavBar from './components/homepage/NavBar.jsx'
+import Footer from './components/homepage/Footer.js'
+import SQDLCarousel from './components/homepage/Carousel.js'
 import Login from './components/lr/Pane.js'
 
-function App() {
-  return (
-      // <>
-      //   <NavBar loginHandler ='' registerHandler ='' aboutHandler =''/>
-      //   <SQDLCarousel/>
-      //   <Footer/>
-      // </>
-      <>
 
-      //can import Login, Register, or homepage from components here
-      <Login/>
-      </>
-    );
+
+const appLayout = ()=>{
+  return (
+    <div>
+    <navbar/>
+    <Outlet/>
+    <Footer/>
+    </div>
+  )
 }
+
+const App = createBrowserRouter([
+  {
+      path: "/",
+      element:<appLayout/>,
+      children:[
+        {
+          path: "/",
+          element:<SQDLCarousel/>
+        },
+        {
+          path: "/login",
+          element: <Login/>
+        }
+      ]
+  }
+])
 
 
 export default App;
+
+
+
