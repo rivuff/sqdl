@@ -1,23 +1,11 @@
 import {
     Card,
     Input,
-    Checkbox,
     Button,
     Typography,
 } from "@material-tailwind/react";
 import React from "react";
-// import {
-//     Tabs,
-//     TabsHeader,
-//     TabsBody,
-//     Tab,
-//     TabPanel,
-// } from "@material-tailwind/react";
-import {
-    Square3Stack3DIcon,
-    UserCircleIcon,
-    Cog6ToothIcon,
-} from "@heroicons/react/24/solid";
+
 import axios from 'axios'
 
 

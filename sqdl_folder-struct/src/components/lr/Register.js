@@ -5,19 +5,8 @@ import {
     Button,
     Typography,
 } from "@material-tailwind/react";
+import { Link } from 'react-router-dom';
 import React from "react";
-// import {
-//     Tabs,
-//     TabsHeader,
-//     TabsBody,
-//     Tab,
-//     TabPanel,
-// } from "@material-tailwind/react";
-import {
-    Square3Stack3DIcon,
-    UserCircleIcon,
-    Cog6ToothIcon,
-} from "@heroicons/react/24/solid";
 
 
 function submitRegister(type){
@@ -34,9 +23,11 @@ function submitRegister(type){
     }
     else if (type =='teacher'){
         var email = document.getElementById('teacherEmail').value
+        var name = document.getElementById('teacherName').value
         var password = document.getElementById('teacherPassword').value
         var post_val={
             'type':type,
+            'name':name,
             'email':email,
             'password':password
         }
@@ -161,12 +152,12 @@ function Form(props) {
                 </Button>
                 <Typography color="gray" className="mt-4 text-center font-normal">
                     Already have an account?{" "}
-                    <a
-                        href="#"
+                    <Link
+                        to="/login"
                         className="font-medium text-blue-500 transition-colors hover:text-blue-700"
                     >
                         Sign In
-                    </a>
+                    </Link>
                 </Typography>
             </form>
         </Card>
@@ -183,6 +174,7 @@ function Form(props) {
                 <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" id ='teacherRegister'>
                     <div className="mb-4 flex flex-col gap-6">
                         <Input size="lg" id ='teacherEmail' label="Email" />
+                        <Input size="lg" id ='teacherName' label="Full Name" />
                         <Input type="password" id ='teacherPassword' size="lg" label="Password" />
                     </div>
                     <Checkbox
@@ -210,12 +202,12 @@ function Form(props) {
                     </Button>
                     <Typography color="gray" className="mt-4 text-center font-normal">
                         Already have an account?{" "}
-                        <a
-                            href="#"
+                        <Link
+                            to="/login"
                             className="font-medium text-blue-500 transition-colors hover:text-blue-700"
                         >
                             Sign In
-                        </a>
+                        </Link>
                     </Typography>
                 </form>
             </Card>
