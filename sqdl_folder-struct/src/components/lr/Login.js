@@ -1,239 +1,71 @@
+//imports
 import {
     Card,
     Input,
     Button,
     Typography,
+    input,
 } from "@material-tailwind/react";
 import React from "react";
-
 import axios from 'axios'
+import { useState, useEffect } from 'react'
 
+function loginhandler(formData){
+    //axios submission here
 
-const postData =  async(type)=>{
-    //e.preventDefault();
-    // let post_val = {
-    // 'type': type,
-    // 'email': email,
-    // 'password': password
-    // }
-
-    if (type === 'teacher') {
-        const email = document.getElementById('teacherEmail').value;
-        const password = document.getElementById('teacherPassword').value;
-        const postVal = {
-          email: email,
-          password: password
-        };
-
-        console.log(postVal.password);
-    
-        try {
-            const response = await axios.post('http://localhost:5000/api/v1/teacher/login', postVal);
-            const data = response.data;
-            console.log(response);
-            if (data) {
-                console.log('Sign in successful');
-            } else {
-                console.log('Data not found');
-            }
-          localStorage.setItem('userInfo', JSON.stringify(data));
-        } catch (error) {
-          console.log("User not found");
-          //throw error; // Re-throw the error to handle it further up the call stack
-        }
-    }
-    else if(type==='student'){
-    try{
-        let enrollment = document.getElementById('studentEnrollment').value
-        let password = document.getElementById('studentPassword').value
-        // var post_val = {
-        //     'type':type,
-        //     'enrollment': enrollment,
-        //     'password': password,
-        // }
-        const res ={
-            headers:{
-                "Content-type":"application/json",
-            }
-        }
-
-        const {data} = await axios.post(`http://localhost:5000/api/v1/student/login`, {enrollment, password},res)
-       
-        localStorage.setItem('userInfo', JSON.stringify(data));
-    
-        
-        // props.set(true);
-    } catch (error) {
-        console.log(error);
-        throw error
-    }
-    }
-
-   
 }
 
 
-// function submitLogin(type) {
-//     if (type === 'student') {
-        
-//     }
-//     else if (type === 'teacher') {
-//         try {
-//             let email = document.getElementById('teacherEmail').value
-//             let password = document.getElementById('teacherPassword').value
-//             let post_val = {
-//             'type': type,
-//             'email': email,
-//             'password': password
-//         }
 
-            
-//         } catch (error) {
-            
-//         }
-        
-       
-//     }
+export default function Login() {
+
+    //initializing states
+    let [formData, setData] = useState({
+        email : '',
+        password : '',
+        errmsg: ''
+    })
+     
 
 
-    
+    useEffect(()=>{
+        let errmsg = document.getElementById('errmsg')
+        let email = formData.email
+        console.log()
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
+            errmsg.style.visibility = 'block'
+            errmsg.value = 'Please enter valid email address'
+        }
+    })
 
-//     //submit post_val using axios
-//     //route to next page with return, disable register button
-//     console.log(post_val)
-//     return null
-// }
-//component design
-
-const Tabs = ({ color }) => {
-    const [openTab, setOpenTab] = React.useState(1);
     return (
-        <div>
-            <div className="flex flex-wrap">
-                <div className="w-full">
-                    <ul
-                        className="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
-                        role="tablist"
-                    >
-                        <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                            <a
-                                className={
-                                    "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
-                                    (openTab === 1
-                                        ? "text-blue-400 bg--600"
-                                        : "text-" + color + "-600 bg-white")
-                                }
-                                onClick={e => {
-                                    e.preventDefault();
-                                    setOpenTab(1);
-                                }}
-                                data-toggle="tab"
-                                href="#link1"
-                                role="tablist"
-                            >
-                                Student
-                            </a>
-                        </li>
-                        <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                            <a
-                                className={
-                                    "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
-                                    (openTab === 2
-                                        ? "text-blue-400 bg-" + color + "-600"
-                                        : "text-blue" + "-600 bg-white")
-                                }
-                                onClick={e => {
-                                    e.preventDefault();
-                                    setOpenTab(2);
-                                }}
-                                data-toggle="tab"
-                                href="#link2"
-                                role="tablist"
-                            >
-                                Teacher
-                            </a>
-                        </li>
-
-                    </ul>
-                    <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-                        <div className="px-4 py-5 flex-auto">
-                            <div className="tab-content tab-space">
-                                <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                                    <Form input='student' />
-                                </div>
-                                <div className={openTab === 2 ? "block" : "hidden"} id="link2">
-                                    <Form input='teacher' />
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function Form(props) {
-    if (props.input == 'student') {
-        return (
-            <Card color="transparent" shadow={false}>
-                <Typography variant="h4" color="blue-gray">
-                    Student login
+        <div className="align-center p-10 flex items-center justify-center h-screen ">
+            <div className="border-blue-400 border-4 rounded-lg p-10">
+                <Card color="transparent" shadow={false}>
+                <Typography variant="h4" color="blue-gray" className='capitalize'>
+                    Login
                 </Typography>
                 <Typography color="gray" className="mt-1 font-normal">
-                    Enter your details to login.
+                    Enter your details to Login
                 </Typography>
-                <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" id='studentRegister'>
+                <Typography color="red" className="mt-1 font-normal" id ='errmsg'>
+                    {formData.errmsg!=''?formData.errmsg:''}
+                </Typography>
+                <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" id='loginForm'>
                     <div className="mb-4 flex flex-col gap-6">
-                        <Input size="lg" id='studentEnrollment' label="Enrollment Number" />
-                        <Input type="password" id='studentPassword' size="lg" label="Password" />
+                            <Input id='email' type='email' label="Email address" size='lg' value={formData.email} onChange={(e) => { setData({ ...formData, email: e.target.value, errmsg: !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)) ? 'Invalid Email Address' :'' })} }></Input>
+                            <Input id='password' type='password' label="Password" size='lg' value={formData.password} onChange={(e) => setData({...formData, password: e.target.value})}></Input>
                     </div>
-
-                    <Button className="mt-6" fullWidth onClick={() => { postData('student') }}>
+                        <Button disabled={((formData.errmsg != '') || (formData.password == '') || (formData.email == '')) ?true:false} className="mt-6 capitalize" fullWidth onClick={() => {
+                            loginhandler(formData)
+                        }}>
                         Login
                     </Button>
 
                 </form>
             </Card>
-        );
-    }
-    if (props.input == 'teacher') {
-        return (
-            <Card color="transparent" shadow={false}>
-                <Typography variant="h4" color="blue-gray">
-                    Teacher Login
-                </Typography>
-                <Typography color="gray" className="mt-1 font-normal">
-                    Enter your details to login.
-                </Typography>
-                <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" id='teacherRegister'>
-                    <div className="mb-4 flex flex-col gap-6">
-                        <Input size="lg" id='teacherEmail' label="Email" type="email"/>
-                        <Input type="password" id='teacherPassword' size="lg" label="Password" />
-                        {
-                            //address and name add here
-                        }
-                    </div>
-
-                        <Button className="mt-6" fullWidth onClick={() => { postData('teacher') }}>
-                            Login
-                        </Button>
-                </form>
-            </Card>
-        );
-    }
-}
-
-export default function Login() {
-    return (
-
-        <div className="align-center p-10 flex items-center justify-center h-screen ">
-            <div className="border-blue-400 border-4 rounded-lg p-10">
-
-
-                <Tabs color='blue'></Tabs>
-            </div>
+            
+        </div>
         </div>
     );
 }
