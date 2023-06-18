@@ -9,45 +9,31 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from 'react-router-dom';
 
 function NavList(props) {
-    return (
-        <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-            <li>
-                <Typography
-                    as="li"
-                    variant="small"
-                    color="blue-gray"
-                    className="p-1 font-medium "
-                >
-                    <a href="#" className=" text-black flex items-center hover:text-blue-500 transition-colors">
-                        About
-                    </a>
-                </Typography>
-            </li>           
-             <li>
-                <Typography
-                    as="li"
-                    variant="small"
-                    color="blue-gray"
-                    className="p-1 font-medium "
-                >
-                    <Link className=" text-black flex items-center hover:text-blue-500 transition-colors" to="/login">
-                        Login
-                    </Link>
-                </Typography>
-            </li>            <li>
-                <Typography
-                    as="li"
-                    variant="small"
-                    color="blue-gray"
-                    className="p-1 font-medium "
-                >
-                    <Link className=" text-black flex items-center hover:text-blue-500 transition-colors"  to="/register">
-                        Register
-                    </Link>
-                </Typography>
-            </li>
-        </ul>
-    );
+    var navList = props.navList
+    if (navList != undefined) {
+        return (
+            <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+                {
+                    Object.entries(navList).map(([key, val]) => {
+                        return (
+                            <li key={key}>
+                                <Typography
+                                    as="li"
+                                    variant="small"
+                                    color="blue-gray"
+                                    className="p-1 font-medium "
+                                >
+                                    <Link to={key} key={key} className=" text-black flex items-center hover:text-blue-500 transition-colors text-lg">
+                                        {val}
+                                    </Link>
+                                </Typography>
+                            </li>
+                        );
+                    })
+                }
+            </ul>
+        );
+    }
 }
 
 function NavBar(props) {
@@ -64,6 +50,9 @@ function NavBar(props) {
         };
     }, []);
 
+    var navList = props.navList //props to pass into Navlist
+
+
     return (
         <Navbar className="mx-auto max-w-screen-xl px-6 py-3">
             <div className="flex items-center justify-between text-blue-gray-900 ">
@@ -78,7 +67,7 @@ function NavBar(props) {
                     
                 </Typography>
                 <div className="hidden lg:block">
-                    <NavList />
+                    <NavList navList={navList} />
                 </div>
                 <IconButton
                     variant="text"
@@ -95,7 +84,7 @@ function NavBar(props) {
                 
             </div>
             <Collapse open={openNav}>
-                <NavList loginHandler ={props.loginHandler} registerHandler ={props.registerHandler}/>
+                <NavList navList= {navList}/>
             </Collapse>
         </Navbar>
     );
