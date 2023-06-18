@@ -1,5 +1,6 @@
 import { Carousel, Typography } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
+import { Link } from "react-router-dom";
 
 export default function SQDLCarousel() {
     return (
@@ -28,10 +29,14 @@ export default function SQDLCarousel() {
                         </Typography>
                         <div className="flex justify-center gap-6">
                             <Button  color="white" variant ='text'>
+                            <Link to='/login'>
                                 Login
+                                </Link>
                             </Button>
                             <Button  color="white" variant="text">
+                            <Link to='/register'>
                                 Register
+                            </Link>
                             </Button>
                         </div>
                     </div>

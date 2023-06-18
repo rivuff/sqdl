@@ -6,7 +6,7 @@ import {
     IconButton,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-
+import { Link } from 'react-router-dom';
 
 function NavList(props) {
     return (
@@ -22,16 +22,17 @@ function NavList(props) {
                         About
                     </a>
                 </Typography>
-            </li>            <li>
+            </li>           
+             <li>
                 <Typography
                     as="li"
                     variant="small"
                     color="blue-gray"
                     className="p-1 font-medium "
                 >
-                    <a href="#" className=" text-black flex items-center hover:text-blue-500 transition-colors" >
+                    <Link className=" text-black flex items-center hover:text-blue-500 transition-colors" to="/login">
                         Login
-                    </a>
+                    </Link>
                 </Typography>
             </li>            <li>
                 <Typography
@@ -40,16 +41,16 @@ function NavList(props) {
                     color="blue-gray"
                     className="p-1 font-medium "
                 >
-                    <a href="#" className=" text-black flex items-center hover:text-blue-500 transition-colors" >
+                    <Link className=" text-black flex items-center hover:text-blue-500 transition-colors"  to="/register">
                         Register
-                    </a>
+                    </Link>
                 </Typography>
             </li>
         </ul>
     );
 }
 
- function NavBar(props) {
+function NavBar(props) {
     const [openNav, setOpenNav] = React.useState(false);
 
     const handleWindowResize = () =>
@@ -71,8 +72,10 @@ function NavList(props) {
                     href="#"
                     variant="h6"
                     className="mr-4 cursor-pointer py-1.5 text-2xl font-extrabold text-black"
-                >
-                    SQDL
+                ><Link to="/">
+                SQDL
+                </Link>
+                    
                 </Typography>
                 <div className="hidden lg:block">
                     <NavList />
