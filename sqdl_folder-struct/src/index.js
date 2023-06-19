@@ -8,6 +8,7 @@ import SQDLCarousel from './components/homepage/Carousel.js'
 import Login from './components/lr/Login.js'
 import reportWebVitals from './reportWebVitals';
 import Register from './components/lr/Register';
+import LandingPage from './components/dashboards/LandingPage'
 
 const AppLayout = ()=>{
   return (
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         {
           path: "/register",
           element: <Register/>
+        },
+        {
+          path:'/dashboard',
+          element: <LandingPage/>
         }
       ]
   }
