@@ -10,22 +10,6 @@ import React from "react";
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
-const loginhandler= async(formData)=>{
-    //axios submission here
-    try {
-        const response = await axios.post('http://localhost:5000/api/v1/teacher/login', formData);
-        const data = response.data;
-        console.log(response);
-        if (data) {
-            console.log('Sign in successful');
-        } else {
-            console.log('Data not found');
-        }
-        localStorage.setItem('userInfo', JSON.stringify(data));
-    } catch (error) {
-        console.log("User not found");
-    }
-}   
 
 
 export default function Login() {
@@ -47,12 +31,11 @@ export default function Login() {
                     "Content-type":"application/json",
                 }
             }
-
             const data = await axios.post(`http://localhost:5000/api/v1/user/login`, {email, password},res)
             
             // setLogged(true);
             localStorage.setItem('userInfo', JSON.stringify(data));
-            
+            console.log('Logged In')
             // props.set(true);
         } catch (error) {
             console.log(error);
