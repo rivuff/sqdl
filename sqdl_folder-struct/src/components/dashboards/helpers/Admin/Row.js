@@ -15,11 +15,6 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const Row = ({_id}) => {
-    const res = {
-        headers: {
-            "Content-type": "application/json",
-        }
-    }
 
     const [formData, editForm] = useState({
         email: '',
@@ -33,7 +28,11 @@ const Row = ({_id}) => {
         isFetched: false
     })
     async function getData() {
-        
+        const res = {
+            headers: {
+                "Content-type": "application/json"
+            }
+        }
         axios.post(`http://localhost:5000/api/v1/user/getID`, { _id: _id }, res)
             .then((response) => {
                 let data = response.data.data
@@ -48,28 +47,35 @@ const Row = ({_id}) => {
     const updateHandler = async (e,_id, type) => {
         e.preventDefault();
         //creating data struct
+        let info
         if (type!='student')
         {
-            let info = {
-                name: document.getElementById('name' + _id),
-                email: document.getElementById('email' + _id),
-                enrollmentNumber: document.getElementById('enrollmentNumber' + _id),
-                rollNumber: document.getElementById('rollNumber' + _id),
-                status: document.getElementById('status' + _id),
-                type: document.getElementById('type' + _id),
+            info = {
+                name: document.getElementById('name' + _id).value,
+                email: document.getElementById('email' + _id).value,
+                enrollmentNumber: '',
+                rollNumber: '',
+                status: document.getElementById('status' + _id).value,
+                type: document.getElementById('type' + _id).value,
             }
         }
         else{
-            let info = {
-                name: document.getElementById('name' + _id),
-                email: document.getElementById('email' + _id),
-                enrollmentNumber: null,
-                rollNumber: null,
-                status: document.getElementById('status' + _id),
-                type: document.getElementById('type' + _id),
+            info = {
+                name: document.getElementById('name' + _id).value,
+                email: document.getElementById('email' + _id).value,
+                enrollmentNumber: document.getElementById('enrollmentNumber' + _id).value,
+                rollNumber: document.getElementById('rollNumber' + _id).value,
+                status: document.getElementById('status' + _id).value,
+                type: document.getElementById('type' + _id).value,
+            }
+        }
+        const res = {
+            headers: {
+                "Content-type": "application/json"
             }
         }
         //posting data to the server
+        console.log(res, info)
         axios.post(`http://localhost:5000/api/v1/user/update`, info, res)
             .then((response) => {
                 console.log(response)
@@ -202,17 +208,17 @@ const Row = ({_id}) => {
                             </div>
                             <div className='p-2'>
 
-                                <Select id={'status' + formData._id}label='Status' defaultValue={formData.status} >
-                                    <Option value="active">Active</Option>
-                                    <Option value="invited">Invited</Option>
-                                    <Option value="blocked">Blocked</Option>
-                                </Select>
+                                <select id={'status' + formData._id}label='Status' defaultValue={formData.status} >
+                                    <option value="active">Active</option>
+                                    <option value="invited">Invited</option>
+                                    <option value="blocked">Blocked</option>
+                                </select>
                             </div>
-                            <div className='p-2' id={'type' + formData._id}>
-                                <Select label='Account type' defaultValue={formData.type} >
-                                    <Option value="teacher">Teacher</Option>
-                                    <Option value="admin">Admin</Option>
-                                </Select>
+                            <div className='p-2' >
+                                <select id={'type' + formData._id} label='Account type' defaultValue={formData.type} >
+                                    <option value="teacher">Teacher</option>
+                                    <option value="admin">Admin</option>
+                                </select>
                             </div>
                                     <Button size="sm" onClick={(e) => { updateHandler(e,formData._id, document.getElementById('type' + formData._id).value) }}>Update</Button>
                         </form>
