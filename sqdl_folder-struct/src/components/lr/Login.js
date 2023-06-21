@@ -11,6 +11,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { UserState } from "../../context/contextProvider.js";
 
+
 export default function Login() {
 
     //console.log(UserState);
@@ -31,13 +32,13 @@ export default function Login() {
                 headers:{
                     "Content-type":"application/json",
                 }
-            }
-
+         
             const data = await axios.post(`http://localhost:5000/api/v1/user/login`, {email, password},res);
+
             
             setLogged(true);
             localStorage.setItem('userInfo', JSON.stringify(data));
-            
+            console.log('Logged In')
             // props.set(true);
         } catch (error) {
             console.log(error);

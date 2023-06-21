@@ -1,7 +1,7 @@
 import React from 'react'
 
 import axios from 'axios'
-import TeacherTable from './helpers/TeacherTable';
+import TeacherTable from './helpers/Admin/TeacherTable';
 import {Button} from '@material-tailwind/react'
 
 const sendInvite = async () => {
@@ -28,7 +28,7 @@ const Admin = () => {
     let users = []
     return (
         <div className='flex items-center py-5 align-middle justify-center w-full content-center'>            
-            <div className='p-10  items-center justify-center w-2/3'>
+            <div className='p-10  items-center justify-center w-full'>
                 <Tabs color ='blue'></Tabs>
 
             </div>
