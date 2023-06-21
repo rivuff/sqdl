@@ -1,5 +1,4 @@
 import React from "react";
-import {useState} from 'react';
 import {
     Collapse,
     Button,
@@ -10,8 +9,10 @@ import {
 
 } from "@material-tailwind/react";
 import axios from 'axios'
+import { useState } from "react";
 
 export default function TeacherInvite() {
+    const [msg, setMsg] = useState('')
     const [open, setOpen] = useState(false);
     const toggleOpen = () => setOpen(cur => !cur);
 
@@ -24,10 +25,18 @@ export default function TeacherInvite() {
         }
         axios.post('http://localhost:5000/api/v1/admin/invite', { email: document.getElementById('invitationEmail').value, name: document.getElementById('invitationName').value}, res)
         .then((response)=>{
-            console.log(response)
+            if (response.status == 200){
+                //update hook to show success
+                setMsg('')
+                setMsg(response.data.message)
+                document.getElementById('invitationEmail').value = ''
+                document.getElementById('invitationName').value = ''
+            }
         })
         .catch((error)=>{
-            console.log(error)
+            setMsg('')
+            setMsg('ERROR: '+error.response.data.message)
+                //update hook to show error
         })
     }
     return (    
@@ -40,6 +49,9 @@ export default function TeacherInvite() {
                 <Card className="my-4 mx-auto w-8/12">
                     <CardBody>
                         <div className="mb-4 flex flex-col gap-6 items-center">
+                            <Typography className={msg == '' ? 'hidden' : 'visible font-semibold'}>
+                                {msg}
+                            </Typography>
                             <Input size="md" label="Name" id ='invitationName'/>
                             <Input size="md" label="Email" id = 'invitationEmail'/>
                             <Button className="w-1/4" variant="outlined" onClick={(e) => { submitHandler(e)}}>Submit</Button>

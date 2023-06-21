@@ -22,7 +22,16 @@ const TeacherTable = () => {
             }
         }
        axios.get(`http://localhost:5000/api/v1/user/getall`, res).then((response)=>{
-            setState({...state,isLoading: false, data: response.data.data});
+            let allusers = response.data.data
+            console.log(allusers)
+            let allteachers = []
+            allusers.forEach((user)=>{
+                console.log(user)
+                if ((user.type) != 'student'){
+                    allteachers.push(user)
+                }
+            })
+            setState({...state,isLoading: false, data: allteachers});
        }).catch((error)=>{
            {
                console.log(error)
