@@ -9,11 +9,13 @@ import {
 import React from "react";
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-
+import { UserState } from "../../context/contextProvider.js";
 
 
 export default function Login() {
 
+    //console.log(UserState);
+   const {logged, setLogged} = UserState();
     //initializing states
     let [formData, setData] = useState({
         email : '',
@@ -30,10 +32,11 @@ export default function Login() {
                 headers:{
                     "Content-type":"application/json",
                 }
-            }
-            const data = await axios.post(`http://localhost:5000/api/v1/user/login`, {email, password},res)
+         
+            const data = await axios.post(`http://localhost:5000/api/v1/user/login`, {email, password},res);
+
             
-            // setLogged(true);
+            setLogged(true);
             localStorage.setItem('userInfo', JSON.stringify(data));
             console.log('Logged In')
             // props.set(true);

@@ -7,6 +7,7 @@ import {
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from 'react-router-dom';
+import { useContext, useState } from "react";
 
 function NavList(props) {
     var navList = props.navList
@@ -39,6 +40,7 @@ function NavList(props) {
 function NavBar(props) {
     const [openNav, setOpenNav] = React.useState(false);
 
+
     const handleWindowResize = () =>
         window.innerWidth >= 960 && setOpenNav(false);
 
@@ -66,6 +68,7 @@ function NavBar(props) {
                 </Link>
                     
                 </Typography>
+
                 <div className="hidden lg:block">
                     <NavList navList={navList} />
                 </div>
