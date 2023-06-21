@@ -9,13 +9,16 @@ import Login from './components/lr/Login.js'
 import reportWebVitals from './reportWebVitals';
 import Register from './components/lr/Register';
 import LandingPage from './components/dashboards/LandingPage'
-
+import StudentLandingPage from './components/dashboards/Student.js';
+import ContextProvider from './context/contextProvider';
 const AppLayout = ()=>{
   return (
     <div>
-    <NavBar navList = {{about: 'About', login: 'Login', register: 'Register'}}/> 
-    <Outlet/>
-    <Footer/>
+      <ContextProvider>
+        <NavBar navList = {{about: 'About', login: 'Login', register: 'Register'}}/> 
+        <Outlet/>
+        <Footer/>
+      </ContextProvider>
     </div>
   )
 }
@@ -40,6 +43,10 @@ const router = createBrowserRouter([
         {
           path:'/dashboard',
           element: <LandingPage/>
+        },
+        {
+          path: '/student',
+          element: <StudentLandingPage/>
         }
       ]
   }
