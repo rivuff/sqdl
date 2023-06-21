@@ -28,7 +28,7 @@ const Admin = () => {
     let users = []
     return (
         <div className='flex items-center py-5 align-middle justify-center w-full content-center'>            
-            <div className='p-10  items-center justify-center w-4/5'>
+            <div className='p-10  items-center justify-center w-full'>
                 <Tabs color ='blue'></Tabs>
 
             </div>

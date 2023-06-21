@@ -47,14 +47,15 @@ const Row = ({_id}) => {
     const updateHandler = async (e,_id, type) => {
         e.preventDefault();
         //creating data struct
-        let info
+        let info = {}
         if (type!='student')
         {
             info = {
                 name: document.getElementById('name' + _id).value,
                 email: document.getElementById('email' + _id).value,
-                enrollmentNumber: '',
-                rollNumber: '',
+                enrollmentNumber: formData.enrollmentNumber,
+                rollNumber: formData.rollNumber,
+                _id: formData._id,
                 status: document.getElementById('status' + _id).value,
                 type: document.getElementById('type' + _id).value,
             }
@@ -65,23 +66,23 @@ const Row = ({_id}) => {
                 email: document.getElementById('email' + _id).value,
                 enrollmentNumber: document.getElementById('enrollmentNumber' + _id).value,
                 rollNumber: document.getElementById('rollNumber' + _id).value,
+                _id: formData._id,
                 status: document.getElementById('status' + _id).value,
                 type: document.getElementById('type' + _id).value,
             }
         }
         const res = {
             headers: {
-                "Content-type": "application/json"
+                "Content-type": "application/json",
             }
         }
         //posting data to the server
-        console.log(res, info)
-        axios.post(`http://localhost:5000/api/v1/user/update`, info, res)
+        axios.post(`http://localhost:5000/api/v1/user/update`, JSON.stringify(info), res)
             .then((response) => {
                 console.log(response)
                 console.log('Updated info')
-                editForm({ ...formData, isFetched: false })//update other fields with returned response data
-
+                editForm({ ...response, isFetched: false })//update other fields with returned response data
+                document.getElementById('click'+formData._id).click()
             })
             .catch((error) => {
                 console.log(error)
@@ -129,13 +130,13 @@ const Row = ({_id}) => {
                     <Typography>
                         <Popover>
                             <PopoverHandler>
-                                <Button size="sm">Edit</Button>
+                                <Button size="sm" id={'click' + formData._id}>Edit</Button>
                             </PopoverHandler>
                             <PopoverContent className="p-4">
                                 <form className='flex flex-col items-center justify-center'>
                                     <div className="p-2"><Input id={'name' + formData._id} label="Name" defaultValue={formData.name} ></Input></div>
                                     <div className='p-2'>
-                                        <Input id={'email' + formData._id} label="email" defaultValue={formData.email}></Input>
+                                        <Input id={'email' + formData._id} label="email" disabled defaultValue={formData.email}></Input>
                                     </div>
                                     <div className='p-2'>
                                         <Input id={'enrollmentNumber' + formData._id} label="Enrollment Number" defaultValue={formData.enrollmentNumber} ></Input>
@@ -155,7 +156,7 @@ const Row = ({_id}) => {
                                             <Option value="student">Student</Option>
                                         </Select>
                                     </div>
-                                    <Button size="sm" onClick={(e) => { updateHandler(e,formData._id, document.getElementById('type' + formData._id).value) }}>Update</Button>
+                                    <Button size="sm"onClick={(e) => { updateHandler(e,formData._id, document.getElementById('type' + formData._id).value) }}>Update</Button>
                                 </form>
                             </PopoverContent>
                         </Popover>
@@ -173,7 +174,7 @@ const Row = ({_id}) => {
     }
     else { //teacher edit form
         return (
-               <tr className='font-bold'>
+               <tr className='font-bold '>
         <td className='p-2 '>
             <Typography>
                 {formData.name}
@@ -198,13 +199,13 @@ const Row = ({_id}) => {
             <Typography>
                 <Popover>
                     <PopoverHandler>
-                        <Button size="sm">Edit</Button>
+                    <Button size="sm" id={'click' + formData._id}>Edit</Button>
                     </PopoverHandler>
                     <PopoverContent className="p-4">
                         <form className='flex flex-col items-center justify-center'>
                             <div className="p-2"><Input id={'name' + formData._id} label="Name" defaultValue={formData.name} ></Input></div>
                             <div className='p-2'>
-                            <Input id={'email' + formData._id} label="email" defaultValue={formData.email} ></Input>
+                            <Input id={'email' + formData._id} label="email"disabled defaultValue={formData.email} ></Input>
                             </div>
                             <div className='p-2'>
 
