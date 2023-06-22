@@ -28,16 +28,16 @@ export default function SQDLCarousel() {
                             This SQDL App has been designed to enable some degree of self-directed learning in classroom environments
                         </Typography>
                         <div className="flex justify-center gap-6">
-                            <Button  color="white" variant ='text'>
                             <Link to='/login'>
-                                Login
-                                </Link>
-                            </Button>
-                            <Button  color="white" variant="text">
-                            <Link to='/register'>
-                                Register
+                                <Button  color="white" variant ='text'>
+                                    Login
+                                </Button>
                             </Link>
-                            </Button>
+                            <Link to='/register'>
+                                <Button  color="white" variant="text">
+                                    Register
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -11,6 +11,9 @@ import Register from './components/lr/Register';
 import LandingPage from './components/dashboards/LandingPage'
 import StudentLandingPage from './components/dashboards/Student.js';
 import ContextProvider from './context/contextProvider';
+import Accept from './components/invite/Accept.js'
+import { useParams } from 'react-router';
+
 const AppLayout = ()=>{
   return (
     <div>
@@ -47,6 +50,10 @@ const router = createBrowserRouter([
         {
           path: '/student',
           element: <StudentLandingPage/>
+        },
+        {
+          path:'/invite/accept/:token',
+          element: <Accept/>
         }
       ]
   }
