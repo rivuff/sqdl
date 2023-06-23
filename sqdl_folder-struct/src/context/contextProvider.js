@@ -21,14 +21,20 @@ const ContextProvider = ({children}) =>{
         
         if (logged === true) {
             if (userInfo?.data?.data?.type === 'student') {
+
               navigate('/student/home');
+              // navigate('/dashboard');
+
             } else if (userInfo?.data?.data?.type === 'teacher') {
-              navigate('/');
+              // navigate('/dashboard');
             }
             else if (userInfo?.data?.data?.type === 'admin') {
-                navigate('/');
+                // navigate('/dashboard');
               }
           }
+        if (logged === false){
+          // navigate('/');
+        }
         console.log(logged);
     }, [logged, navigate])
 

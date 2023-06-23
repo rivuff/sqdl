@@ -2,6 +2,7 @@ import React from 'react'
 
 import axios from 'axios'
 import TeacherTable from './helpers/Admin/TeacherTable';
+import StudentTable from './helpers/Admin/StudentTable';
 import {Button} from '@material-tailwind/react'
 
 const sendInvite = async () => {
@@ -95,7 +96,7 @@ const Tabs = ({ color }) => {
                         <div className="px-4 py-5 flex-auto">
                             <div className="tab-content tab-space">
                                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                                    
+                                    <StudentTable/>
                                 </div>
                                 <div className={openTab === 2 ? "block"  : "hidden" }id="link2" >
                                     <TeacherTable/>

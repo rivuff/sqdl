@@ -118,16 +118,6 @@ const Row = ({_id}) => {
                 </td>
                 <td>
                     <Typography>
-                        {formData._id}
-                    </Typography>
-                </td>
-                <td>
-                    <Typography>
-                        {formData.updatedAt}
-                    </Typography>
-                </td>
-                <td>
-                    <Typography>
                         <Popover>
                             <PopoverHandler>
                                 <Button size="sm" id={'click' + formData._id}>Edit</Button>

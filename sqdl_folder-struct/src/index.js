@@ -10,7 +10,12 @@ import reportWebVitals from './reportWebVitals';
 import Register from './components/lr/Register';
 import LandingPage from './components/dashboards/LandingPage.js'
 import ContextProvider from './context/contextProvider';
+
 import StudentLandingPage from './components/dashboards/studentLanding.js';
+import Accept from './components/invite/Accept.js'
+import { useParams } from 'react-router';
+
+
 const AppLayout = ()=>{
   return (
     <div>
@@ -49,8 +54,12 @@ const router = createBrowserRouter([
           element: <StudentLandingPage/>
         },
         {
+
           path: '/student/home',
           element: <StudentLandingPage/>
+
+          path:'/invite/accept/:token',
+          element: <Accept/>
         }
       ]
   }
