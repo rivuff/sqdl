@@ -1,5 +1,4 @@
-import Student from './Student.js'
-import Teacher from './Teacher.JS'
+
 import Admin from './Admin.js'
 import { useContext, useState } from "react";
 import { UserState } from '../../context/contextProvider.js';

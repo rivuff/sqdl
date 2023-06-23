@@ -21,7 +21,7 @@ const ContextProvider = ({children}) =>{
         
         if (logged === true) {
             if (userInfo?.data?.data?.type === 'student') {
-              navigate('/');
+              navigate('/student/home');
             } else if (userInfo?.data?.data?.type === 'teacher') {
               navigate('/');
             }
