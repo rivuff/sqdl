@@ -7,12 +7,18 @@ import {
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from 'react-router-dom';
-import { useContext, useState } from "react";
+import {UserState} from '../../context/contextProvider'
 
 function NavList(props) {
-    var navList = props.navList
+    var navList = props.navList;
+    const {logged, user} = UserState();
+
+    const name = user?.data?.data?.name;
+
     if (navList != undefined) {
         return (
+
+            logged == false?
             <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
                 {
                     Object.entries(navList).map(([key, val]) => {
@@ -32,6 +38,45 @@ function NavList(props) {
                         );
                     })
                 }
+            </ul>
+            :
+            <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+                <li>
+                    <Typography
+                        as="li"
+                        variant="small"
+                        color="blue-gray"
+                        className="p-1 font-medium "
+                    >
+                        <Link to={'/'} className=" text-black flex items-center hover:text-blue-500 transition-colors text-lg">
+                            About
+                        </Link>
+                    </Typography>
+                </li>
+                    <li>
+                        <Typography
+                            as="li"
+                            variant="small"
+                            color="blue-gray"
+                            className="p-1 font-medium "
+                        >
+                            <Link to={'/'} className=" text-black flex items-center hover:text-blue-500 transition-colors text-lg">
+                                Edit user
+                            </Link>
+                        </Typography>
+                    </li>
+                    <li>
+                        <Typography
+                            as="li"
+                            variant="small"
+                            color="blue-gray"
+                            className="p-1 font-medium "
+                        >
+                            <Link to={'/'} className=" text-black p-2 rounded-md flex items-center bg-cyan-200 hover:text-blue-500 transition-colors text-lg">
+                                {name}
+                            </Link>
+                        </Typography>
+                 </li>
             </ul>
         );
     }
