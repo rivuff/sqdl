@@ -12,6 +12,7 @@ import LandingPage from './components/dashboards/LandingPage'
 import StudentLandingPage from './components/dashboards/Student.js';
 import ContextProvider from './context/contextProvider';
 import Accept from './components/invite/Accept.js'
+import About from './components/About.js'
 import { useParams } from 'react-router';
 
 const AppLayout = ()=>{
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
         {
           path:'/invite/accept/:token',
           element: <Accept/>
+        },
+        {
+          path:'/about',
+          element: <About/>
         }
       ]
   }
