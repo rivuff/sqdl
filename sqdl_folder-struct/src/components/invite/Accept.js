@@ -11,6 +11,7 @@ import jwt from 'jsonwebtoken'
 import axios from 'axios'
 import { UserState } from "../../context/contextProvider.js";
 import {useState} from 'react'
+
 const Accept = () => {
     const [state, setMsg] = useState({
         password: '',
@@ -29,16 +30,16 @@ const Accept = () => {
         }
         axios.post('http://localhost:5000/api/v1/teacher/accept', {email: userEmail, password: state.password}, res)
         .then((response)=>{
-            if (response.success == false){
+            console.log(response)
+            if (response.data.success == false){
                 console.log(response.message)
                 setMsg({ ...state, msg: response.message })
             }
-            else if (response.success == true){
-                console.log('Success Authenticating User')
+            else if (response.data.success == true){
                 setMsg({ ...state, msg: 'Success Authenticating User' })
-                localStorage.setItem('userInfo', JSON.stringify(response.data));
-                const { logged, setLogged } = UserState();
-            }
+                localStorage.setItem('userInfo', JSON.stringify(response.data.data));
+                window.location.href = '/dashboard'
+                }
         })
         .catch((error)=>{
             setMsg({ ...state, msg: error.message })

@@ -8,7 +8,7 @@ import React from 'react'
 
 const LandingPage = ()=>{
     //cookie check for type
-    const type = JSON.parse(localStorage.getItem('userInfo')).data.data.type;
+    const type = JSON.parse(localStorage.getItem('userInfo')).type;
     if (type == 'admin'){
         console.log('Admin dashboard')
         return (<Admin/>)

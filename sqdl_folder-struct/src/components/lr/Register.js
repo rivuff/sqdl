@@ -9,7 +9,6 @@ import { Link, useSearchParams } from 'react-router-dom';
 import React from "react";
 import axios from "axios";
 import {useState, useEffect} from 'react'
-
 // function registerhandler(formData){
 
 // }
@@ -49,10 +48,12 @@ export default function Register() {
             const data = await axios.post(`http://localhost:5000/api/v1/user/signup`, {email, name, password, enrollment, rollno}, res).then(()=>{
                 console.log("Success");
                 success = true;
+                
             })
 
             if(success===true){
                 console.log("Registered");
+                window.location.href = '/dashboard'
             }
 
 
