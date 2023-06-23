@@ -11,7 +11,6 @@ import Register from './components/lr/Register';
 import LandingPage from './components/dashboards/LandingPage.js'
 import ContextProvider from './context/contextProvider';
 
-import StudentLandingPage from './components/dashboards/studentLanding.js';
 import Accept from './components/invite/Accept.js'
 import About from './components/About.js'
 import { useParams } from 'react-router';
@@ -51,16 +50,8 @@ const router = createBrowserRouter([
           element: <LandingPage/>
         },
         {
-          path: '/student',
-          element: <StudentLandingPage/>
-        },
-        {
-
-          path: '/student/home',
-          element: <StudentLandingPage/>
-
-          path:'/invite/accept/:token',
-          element: <Accept/>
+          path: '/teacher/accept/:token',
+          element: <Accept />
         },
         {
           path:'/about',

@@ -22,14 +22,14 @@ const ContextProvider = ({children}) =>{
         if (logged === true) {
             if (userInfo?.data?.data?.type === 'student') {
 
-              navigate('/student/home');
+              navigate('/dashboard');
               // navigate('/dashboard');
 
             } else if (userInfo?.data?.data?.type === 'teacher') {
-              // navigate('/dashboard');
+              navigate('/dashboard');
             }
             else if (userInfo?.data?.data?.type === 'admin') {
-                // navigate('/dashboard');
+                navigate('/dashboard');
               }
           }
         if (logged === false){
