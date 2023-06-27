@@ -8,7 +8,7 @@ const sessions = [
 ];
 
 const JoinSessionCard = ({ courseName, sessionName }) => {
-
+  const name = 'Placeholder'//fetch from localdata
   const handleJoinSession = () => {
     // Logic for joining the session
     console.log('Joining session:', courseName, sessionName);

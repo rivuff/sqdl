@@ -14,29 +14,7 @@ const ContextProvider = ({children}) =>{
 
     useEffect(()=>{
         const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        console.log(userInfo?.data?.data);
-        setUser(userInfo);
-        
-       // const nested = userInfo?data?.data?.type;
-        
-        if (logged === true) {
-            if (userInfo?.data?.data?.type === 'student') {
-
-              navigate('/dashboard');
-              // navigate('/dashboard');
-
-            } else if (userInfo?.data?.data?.type === 'teacher') {
-              navigate('/dashboard');
-            }
-            else if (userInfo?.data?.data?.type === 'admin') {
-                navigate('/dashboard');
-              }
-          }
-        if (logged === false){
-          // navigate('/');
-        }
-        console.log(logged);
-    }, [logged, navigate])
+        setUser(userInfo);}, [logged, navigate])
 
     console.log("context",logged);
     return <LoginContext.Provider value={{logged,setLogged, user, setUser}}>{children} </LoginContext.Provider>

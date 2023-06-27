@@ -1,4 +1,3 @@
-//imports
 import {
     Card,
     Input,
@@ -177,7 +176,7 @@ export default function Login() {
         </div>
       );
     }
-
+    
     // return (
     //     <div className="align-center p-10 flex items-center justify-center h-screen ">
     //         <div className="border-blue-400 border-4 rounded-lg p-10">

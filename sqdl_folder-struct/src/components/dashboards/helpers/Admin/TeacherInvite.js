@@ -17,7 +17,7 @@ export default function TeacherInvite() {
     const toggleOpen = () => setOpen(cur => !cur);
 
     async function submitHandler(e){
-
+        console.log(document.getElementById('invitationEmail').value)
         const res = {
             headers: {
                 "Content-type": "application/json"

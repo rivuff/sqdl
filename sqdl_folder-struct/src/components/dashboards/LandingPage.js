@@ -7,15 +7,20 @@ import StudentLandingPage from './StudentLanding.js';
 import React from 'react'
 
 const LandingPage = ()=>{
-    //cookie check for type
-    const type = JSON.parse(localStorage.getItem('userInfo')).type;
-    if (type == 'admin'){
+    //cookie check
+    const userData = JSON.parse(localStorage.getItem('userInfo'));
+    
+    if (userData == null){
+        window.location.href = '/login'
+    }
+
+    if (userData.type == 'admin'){
         console.log('Admin dashboard')
         return (<Admin/>)
-    }    if (type == 'student'){
+    }    if (userData.type == 'student'){
         console.log('Student dashboard')
         return (<StudentLandingPage/>)
-    }    if (type == 'teacher'){
+    }    if (userData.type == 'teacher'){
         console.log('Teacher dashboard')
         return (<Teacher/>)
     }
