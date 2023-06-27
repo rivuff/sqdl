@@ -27,7 +27,7 @@ const TeacherTable = () => {
             let allteachers = []
             allusers.forEach((user)=>{
                 console.log(user)
-                if ((user.type) != 'student'){
+                if ((user.type) == 'teacher'){
                     allteachers.push(user)
                 }
             })

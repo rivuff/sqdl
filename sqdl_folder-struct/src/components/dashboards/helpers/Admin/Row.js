@@ -19,8 +19,8 @@ const Row = ({_id}) => {
     const [formData, editForm] = useState({
         email: '',
         name: '',
-        status: 'active',
-        type: 'teacher',
+        status: '',
+        type: '',
         enrollmentNumber: '',
         rollNumber: '',
         updatedAt: '',
@@ -36,12 +36,15 @@ const Row = ({_id}) => {
         axios.post(`http://localhost:5000/api/v1/user/getID`, { _id: _id }, res)
             .then((response) => {
                 let data = response.data.data
-                editForm({...formData, isFetched:true, email: data.email, name: data.name, status: data.status, type: data.type, enrollmentNumber:data.enrollmentNumber,rollno:data.rollNumber,_id:data._id,updatedAt: data.updatedAt})
+                editForm({...data, isFetched:true})
                 console.log(data)
             })
             .catch((error) => {
                 console.log(error)
             })
+    }
+    const deleteUser = async(_id) =>{
+        console.log(_id)
     }
 
     const updateHandler = async (e,_id, type) => {
@@ -77,11 +80,10 @@ const Row = ({_id}) => {
             }
         }
         //posting data to the server
+        console.log(info)
         axios.post(`http://localhost:5000/api/v1/user/update`, JSON.stringify(info), res)
             .then((response) => {
-                console.log(response)
-                console.log('Updated info')
-                editForm({ ...response, isFetched: false })//update other fields with returned response data
+                editForm({ ...response.data.data, isFetched: false })//update other fields with returned response data
                 document.getElementById('click'+formData._id).click()
             })
             .catch((error) => {
@@ -135,16 +137,15 @@ const Row = ({_id}) => {
                                         <Input id={'rollNumber' + formData._id} label="Roll Number" defaultValue={formData.rollNumber}></Input>
                                     </div>
                                     <div className='p-2'>
-                                        <Select id={'status' + formData._id} label='Status' defaultValue={formData.status}>
-                                            <Option value="active">Active</Option>
-                                            <Option value="invited">Invited</Option>
-                                            <Option value="blocked">Blocked</Option>
-                                        </Select>
+                                        <select id={'status' + formData._id} label='Status' defaultValue={formData.status}>
+                                            <option value="active">Active</option>
+                                            <option value="blocked">Blocked</option>
+                                        </select>
                                     </div>
                                     <div className='p-2'>
-                                        <Select id={'type' + formData._id} label='Account type' defaultValue={formData.type} >
-                                            <Option value="student">Student</Option>
-                                        </Select>
+                                        <select id={'type' + formData._id} label='Account type' defaultValue={formData.type} >
+                                            <option value="student">Student</option>
+                                        </select>
                                     </div>
                                     <Button size="sm"onClick={(e) => { updateHandler(e,formData._id, document.getElementById('type' + formData._id).value) }}>Update</Button>
                                 </form>
@@ -153,7 +154,7 @@ const Row = ({_id}) => {
                     </Typography>
                 </td>            <td>
                     <Typography>
-                        <Button size='sm' color='red'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                        <Button size='sm' color='red'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5" onClick={() => { deleteUser(formData._id)}}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                         </svg></Button>
                     </Typography>
@@ -218,7 +219,7 @@ const Row = ({_id}) => {
             </Typography>
         </td>            <td>
             <Typography>
-                <Button size='sm' color='red'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                        <Button size='sm' color='red'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5" onClick={() => { deleteUser(formData._id) }}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                 </svg></Button>
             </Typography>

@@ -13,6 +13,10 @@ import { UserState } from "../../context/contextProvider.js";
 
 
 export default function Login() {
+    //check if user is logged in
+    if (localStorage.getItem('userInfo')!=null){
+        window.location.href = '/dashboard'
+    }
 
     //console.log(UserState);
    const {logged, setLogged} = UserState();
@@ -34,15 +38,15 @@ export default function Login() {
                 }
             }
             const data = await axios.post(`http://localhost:5000/api/v1/user/login`, {email, password},res)
-
-            
             setLogged(true)
-            localStorage.setItem('userInfo', JSON.stringify(data));
+            console.log(data.data.data)
+            localStorage.setItem('userInfo', JSON.stringify(data.data.data));
             console.log('Logged In')
-            // props.set(true);
+            window.location.href = '/dashboard'
+
         } catch (error) {
             console.log(error);
-            throw error
+            setData({...formData, errmsg: 'Invalid Username or password'})
         }
     }
 
@@ -77,7 +81,7 @@ export default function Login() {
                 <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" id='loginForm'>
                     <div className="mb-4 flex flex-col gap-6">
                             <Input id='email' type='email' label="Email address" size='lg' value={formData.email} onChange={(e) => { setData({ ...formData, email: e.target.value, errmsg: !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)) ? 'Invalid Email Address' :'' })} }></Input>
-                            <Input id='password' type='password' label="Password" size='lg' value={formData.password} onChange={(e) => setData({...formData, password: e.target.value})}></Input>
+                            <Input id='password' type='password' label="Password" size='lg' value={formData.password} onChange={(e) => setData({...formData, password: e.target.value, errmsg: ''})}></Input>
                     </div>
                         <Button disabled={((formData.errmsg != '') || (formData.password == '') || (formData.email == '')) ?true:false} className="mt-6 capitalize" fullWidth onClick={loginhandler}>
                         Login
