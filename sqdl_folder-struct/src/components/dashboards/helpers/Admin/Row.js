@@ -57,9 +57,11 @@ const Row = ({_id}) => {
                  console.log(response);
                  editForm({ ...formData, isFetched: false, deleted: true })//update other fields with returned response data
 
+
             } catch (error) {
                 console.log(error);
             }
+           
         }
         else{
             return null
