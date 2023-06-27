@@ -52,14 +52,14 @@ const Row = ({_id}) => {
             }
         }
         if(window.confirm('Delete user?')){
-            axios.delete('http://localhost:5000/api/v1/user/delete', { email: email }, res)
-                .then((response) => {
-                    console.log(response)
-                    editForm({ ...formData, isFetched: false, deleted: true })//update other fields with returned response data
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
+            try {
+                 const response  = await  axios.delete('http://localhost:5000/api/v1/user/delete', {data: { email: email }}, res)
+                 console.log(response);
+                 editForm({ ...formData, isFetched: false, deleted: true })//update other fields with returned response data
+
+            } catch (error) {
+                console.log(error);
+            }
         }
         else{
             return null
