@@ -45,7 +45,7 @@ export default Admin
 const Tabs = ({ color }) => {
     const [openTab, setOpenTab] = React.useState(1);
     return (
-        <>
+        <div>
             <div className="flex flex-wrap">
                 <div className="w-full">
                     <ul
@@ -107,7 +107,7 @@ const Tabs = ({ color }) => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 

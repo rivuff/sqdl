@@ -12,6 +12,8 @@ import LandingPage from './components/dashboards/LandingPage.js'
 import ContextProvider from './context/contextProvider';
 
 import Accept from './components/invite/Accept.js'
+import StudentLandingPage from './components/dashboards/StudentLanding.js';
+import Admin from './components/dashboards/Admin';
 //import { useParams } from 'react-router';
 
 
@@ -47,16 +49,21 @@ const router = createBrowserRouter([
         },
         {
           path:'/dashboard',
-          element: <LandingPage/>
+          element: <Admin/>
+        },
+        {
+          path: '/student/dashboard',
+          element: <StudentLandingPage/>
         },
         {
           path: '/teacher/accept/:token',
           element: <Accept />
-        },
-        {
-          path:'/about',
-          element: <About/>
         }
+        // },
+        // {
+        //   path:'/about',
+        //   element: <About/>
+        // }
       ]
   }
 ])
