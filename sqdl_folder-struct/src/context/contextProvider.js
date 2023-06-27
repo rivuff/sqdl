@@ -22,7 +22,7 @@ const ContextProvider = ({children}) =>{
         if (logged === true) {
             if (userInfo?.data?.data?.type === 'student') {
 
-              navigate('/student/dashboard');
+              navigate('/dashboard');
               // navigate('/dashboard');
 
             } else if (userInfo?.data?.data?.type === 'teacher') {

@@ -17,6 +17,10 @@ import { useNavigate } from "react-router-dom";
 // }
 
 export default function Register() {
+    //check if user is logged in
+    if (localStorage.getItem('userInfo') != null) {
+        window.location.href = '/dashboard'
+    }
     //defining statehook
     const [formData, setData] = useState({
         name: '',
@@ -37,7 +41,6 @@ export default function Register() {
         let success = false;
         e.preventDefault();
 
-
         const {name, email, password, enrollment, rollno} = formData;
 
         try {
@@ -50,15 +53,13 @@ export default function Register() {
             const data = await axios.post(`http://localhost:5000/api/v1/user/signup`, {email, name, password, enrollment, rollno}, res).then(()=>{
                 console.log("Success");
                 success = true;
-                
             })
-
             if(success===true){
                 console.log("Registered");
+                //setting data in local storage
+                localStorage.setItem('userInfo', JSON.stringify(data.data.data));
                 window.location.href = '/dashboard'
             }
-
-
         } catch (error) {
             console.log(error);
             throw error;
