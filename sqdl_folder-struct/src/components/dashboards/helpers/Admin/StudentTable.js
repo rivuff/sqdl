@@ -13,7 +13,7 @@ const TeacherTable = () => {
         isLoading: true,
         data: []
     })
-
+    
     async function fetchTeacherData() { //= async(req,res)=>{
         console.log('function')
         const res = {
@@ -101,7 +101,7 @@ const TeacherTable = () => {
                             ? <LoadingRow cols={6} />
                             : state.data.map((object) => {
                                 return (
-                                    <Row _id={object._id} key={object._id}></Row>
+                                    <Row _id={object._id} key={object._id} handler = {fetchTeacherData}></Row>
                                 )
                             })
                         }

@@ -37,7 +37,8 @@ export default function Login() {
                     "Content-type":"application/json",
                 }
             }
-            const data = await axios.post(`http://localhost:5000/api/v1/user/login`, {email, password},res)
+            console.log(formData)
+            const data = await axios.post(`http://localhost:5000/api/v1/user/login`, {email: formData.email, password:formData.password},res)
             setLogged(true)
             console.log(data.data.data)
             localStorage.setItem('userInfo', JSON.stringify(data.data.data));

@@ -11,7 +11,7 @@ import {
 import axios from 'axios'
 import { useState } from "react";
 
-export default function TeacherInvite() {
+export default function TeacherInvite({handler}) {
     const [msg, setMsg] = useState('')
     const [open, setOpen] = useState(false);
     const toggleOpen = () => setOpen(cur => !cur);
@@ -31,6 +31,7 @@ export default function TeacherInvite() {
                 setMsg(response.data.message)
                 document.getElementById('invitationEmail').value = ''
                 document.getElementById('invitationName').value = ''
+                handler()
             }
         })
         .catch((error)=>{
