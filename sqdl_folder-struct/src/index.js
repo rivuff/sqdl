@@ -12,10 +12,10 @@ import LandingPage from './components/dashboards/LandingPage.js'
 import ContextProvider from './context/contextProvider';
 
 import Accept from './components/invite/Accept.js'
-import StudentLandingPage from './components/dashboards/StudentLanding.js';
+import StudentLandingPage from './components/dashboards/studentLanding.js';
 import Admin from './components/dashboards/Admin';
 //import { useParams } from 'react-router';
-
+import SubjectPage from './components/dashboards/Subject';
 
 
 const AppLayout = ()=>{
@@ -58,6 +58,10 @@ const router = createBrowserRouter([
         {
           path: '/teacher/accept/:token',
           element: <Accept />
+        },
+        {
+          path:'/subject',
+          element: <SubjectPage/>
         }
         // },
         // {

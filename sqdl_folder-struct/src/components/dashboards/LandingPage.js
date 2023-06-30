@@ -3,7 +3,7 @@ import Student from './Student.js'
 import Teacher from './Teacher.js'
 import Admin from './Admin.js'
 import { useContext, useState } from "react";
-import StudentLandingPage from './StudentLanding.js';
+import StudentLandingPage from './studentLanding.js';
 import React from 'react'
 
 const LandingPage = ()=>{

@@ -29,7 +29,11 @@ const JoinSessionCard = ({ courseName, sessionName }) => {
         <div className="text-sm">
           <p className="text-gray-900 leading-none">Jonathan Reinink</p>
           <p className="text-gray-600">{sessionName}</p>
-          <button className='b-4 p-2 bg-blue-300 rounded-md' onClick={handleJoinSession}>Join Session</button>
+          <div className='flex'>
+            <button className='b-4 p-2 mr-2 bg-blue-300 rounded-md' onClick={handleJoinSession}>Join Session</button>
+            <button className='b-4 p-2 bg-blue-300 rounded-md' onClick={handleJoinSession}>Track Session</button>
+          </div>
+          
         </div>
       </div>
     </div>
