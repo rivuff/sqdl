@@ -43,27 +43,22 @@ export default function Register() {
 
         const {name, email, password, enrollment, rollno} = formData;
 
-        try {
             const res = {
                 headers:{
                     "Content-type":"application/json",
                 },
             };
 
-            const data = await axios.post(`http://localhost:5000/api/v1/user/signup`, {email, name, password, enrollment, rollno}, res).then(()=>{
-                console.log("Success");
-                success = true;
-            })
-            if(success===true){
-                console.log("Registered");
+            axios.post(`http://localhost:5000/api/v1/user/signup`, {email, name, password, enrollment, rollno}, res)
+            .then((response)=>{
                 //setting data in local storage
-                localStorage.setItem('userInfo', JSON.stringify(data.data.data));
+                localStorage.setItem('userInfo', JSON.stringify(response.data.data));
                 window.location.href = '/dashboard'
-            }
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
+            })
+            .catch((error)=>{
+                console.log(error)
+                setData({...formData, errmsg: error.response.data.message})
+            })
 
     }
 
@@ -89,7 +84,7 @@ export default function Register() {
                             <Input id='enrollment' type='text' label="Enrollment Number" size='lg' value={formData.enrollment} onChange={(e) => setData({ ...formData, enrollment: e.target.value })}></Input>
                             <Input id='rollno' type='text' label="Roll no" size='lg' value={formData.rollno} onChange={(e) => setData({ ...formData, rollno: e.target.value })}></Input>
                         </div>
-                        <Button disabled={((formData.errmsg != '') || (formData.password == '') || (formData.email == '')) ? true : false} className="mt-6 capitalize" fullWidth onClick= {registerhandler}>
+                        <Button disabled={((formData.errmsg != '') || (formData.password == '') || (formData.email == '')||(formData.cpassword == '')||(formData.rollno == '')|| (formData.enrollment == '')) ? true : false} className="mt-6 capitalize" fullWidth onClick= {registerhandler}>
                             Register
                         </Button>
 

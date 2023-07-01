@@ -49,6 +49,7 @@ export default function Login() {
                     "Content-type":"application/json",
                 }
             }
+
             let data;
             if (useEmail) {
                 data = await axios.post(
@@ -64,6 +65,8 @@ export default function Login() {
                 );
               }
             
+            console.log(formData)
+            data = await axios.post(`http://localhost:5000/api/v1/user/login`, {email: formData.email, password:formData.password},res)
             setLogged(true)
             localStorage.setItem('userInfo', JSON.stringify(data));
             console.log('Logged In')

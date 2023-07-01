@@ -14,7 +14,7 @@ import react from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const Row = ({_id}) => {
+const Row = ({_id, handler}) => {
 
     const [formData, editForm] = useState({
         email: '',
@@ -44,7 +44,7 @@ const Row = ({_id}) => {
                 console.log(error)
             })
     }
-    const deleteUser = async(email) =>{
+    async function deleteUser(email){
         console.log(email)
         const res = {
             headers: {
@@ -52,6 +52,7 @@ const Row = ({_id}) => {
             }
         }
         if(window.confirm('Delete user?')){
+
             try {
                  const response  = await  axios.delete('http://localhost:5000/api/v1/user/delete', {data: { email: email }}, res)
                  console.log(response);
@@ -62,6 +63,16 @@ const Row = ({_id}) => {
                 console.log(error);
             }
            
+            console.log(email)
+            axios.post('http://localhost:5000/api/v1/user/delete', { email: email }, res)
+                .then((response) => {
+                    console.log(response)
+                    editForm({ ...formData, isFetched: false, deleted: true })//update other fields with returned response data
+                    handler()
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         }
         else{
             return null
@@ -123,7 +134,7 @@ const Row = ({_id}) => {
     if (formData.type == 'student') //student edit form
     {
         return (
-            <tr className='font-bold' key = {formData._id}>
+            <tr className={formData.deleted ? 'hidden': 'font-bold'} key = {formData._id}>
                 <td className='p-2 '>
                     <Typography>
                         {formData.name}
@@ -179,11 +190,9 @@ const Row = ({_id}) => {
                         </Popover>
                     </Typography>
                 </td>            <td>
-                    <Typography>
                         <Button size='sm' color='red'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5" onClick={() => { deleteUser(formData.email)}}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                         </svg></Button>
-                    </Typography>
                 </td>
             </tr>
             
@@ -244,11 +253,9 @@ const Row = ({_id}) => {
                 </Popover>
             </Typography>
         </td>            <td>
-            <Typography>
                         <Button size='sm' color='red'><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5" onClick={() => { deleteUser(formData.email) }}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m6 4.125l2.25 2.25m0 0l2.25 2.25M12 13.875l2.25-2.25M12 13.875l-2.25 2.25M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                 </svg></Button>
-            </Typography>
         </td>
     </tr>
         );

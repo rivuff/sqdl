@@ -9,6 +9,7 @@ import Login from './components/lr/Login.js'
 import reportWebVitals from './reportWebVitals';
 import Register from './components/lr/Register';
 import LandingPage from './components/dashboards/LandingPage.js'
+import Profile from './components/Profile.js'
 import ContextProvider from './context/contextProvider';
 
 import Accept from './components/invite/Accept.js'
@@ -60,8 +61,18 @@ const router = createBrowserRouter([
           element: <Accept />
         },
         {
+
           path:'/subject',
           element: <SubjectPage/>
+        },
+        {
+          path:'/profile',
+          element: <Profile/>
+        },
+        {
+          path:'/about',
+          element: <About/>
+
         }
         // },
         // {

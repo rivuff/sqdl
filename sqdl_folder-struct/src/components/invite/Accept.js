@@ -33,8 +33,8 @@ const Accept = () => {
                 .then((response) => {
                     console.log(response)
                     if (response.data.success == false) {
-                        console.log(response.message)
-                        setMsg({ ...state, msg: response.message })
+                        console.log(response.data.message)
+                        setMsg({ ...state, msg: response.data.message })
                     }
                     else if (response.data.success == true) {
                         setMsg({ ...state, msg: 'Success Authenticating User' })

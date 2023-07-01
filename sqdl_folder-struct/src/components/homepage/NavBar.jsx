@@ -66,12 +66,9 @@ function NavList(props) {
                             color="blue-gray"
                             className="p-1 font-medium "
                         >
-                            <Popover placement="bottom">
-                                <PopoverHandler>
-                                    <Button>Edit Profile</Button>
-                                </PopoverHandler>
-                                <EditContent/>
-                            </Popover>
+                            <Link to={'/profile'} className=" text-black flex items-center hover:text-blue-500 transition-colors text-lg">
+                                Profile
+                            </Link>
                        
                         </Typography>
                     </li>

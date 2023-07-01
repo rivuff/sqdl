@@ -42,8 +42,10 @@ const TeacherTable = () => {
         fetchTeacherData()
     }
     return (
+
     <div>
         <TeacherInvite></TeacherInvite>
+        <TeacherInvite handler = {fetchTeacherData}></TeacherInvite>
         <Card className="h-full w-full items-center overflow-x-auto">
             <table className="w-full min-w-max table-auto text-left border-spacing-2 border-slate-500 p-2">
                 <thead>
@@ -102,7 +104,7 @@ const TeacherTable = () => {
                         ? <LoadingRow cols = {6}/>
                         : state.data.map((object) => {
                             return (
-                                <Row _id={object._id} key = {object._id}></Row>
+                                <Row _id={object._id} key={object._id} handler={fetchTeacherData}></Row>
                             )
                         })
                     }
