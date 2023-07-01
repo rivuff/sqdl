@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Navbar,
     Collapse,
@@ -14,17 +14,29 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from 'react-router-dom';
 import {UserState} from '../../context/contextProvider'
 import EditContent from "./EditContent";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 function NavList(props) {
     var navList = props.navList;
-    const {logged, user} = UserState();
+    const {logged,setLogged, user} = UserState();
+    const navigate = useNavigate();
 
-    const name = user?.name //gets data from userState
+    const name = user?.data?.data?.name //gets data from userState
+    console.log("use",user?.data?.data);
 
-    if (navList != undefined) {
+    const LogoutHandler = ()=>{      
+        localStorage.removeItem('userInfo');
+        setLogged(false)
+        navigate('/');
+    }
+
+
+    if (!logged) {
+        // Render navigation list for non-logged-in users
         return (
-
-            logged == false?
             <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
                 {
                     Object.entries(navList).map(([key, val]) => {
@@ -45,7 +57,10 @@ function NavList(props) {
                     })
                 }
             </ul>
-            :
+        )
+      } else if (user?.data?.data?.type === 'student') {
+        // Render navigation list for student users
+        return (
             <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
                 <li>
                     <Typography
@@ -72,6 +87,54 @@ function NavList(props) {
                        
                         </Typography>
                     </li>
+                 <li >
+                        <Typography
+                            as="li"
+                            variant="small"
+                            color="red"
+                            className="p-1 font-medium "
+                        >
+                        <li
+                        className="text-black p-2 rounded-md flex items-center bg-red-400 hover:bg-red-600 transition-colors text-lg"
+                        onClick={LogoutHandler}
+                      >
+                        Log out
+                      </li>
+                        </Typography>
+                 </li>
+            </ul>
+        )
+
+      } else {
+
+        return (
+            <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+                <li>
+                    <Typography
+                        as="li"
+                        variant="small"
+                        color="blue-gray"
+                        className="p-1 font-medium "
+                    >
+                        <Link to={'/'} className=" text-black flex items-center hover:text-blue-500 transition-colors text-lg">
+                            About
+                        </Link>
+                    </Typography>
+                </li>
+                    <li>
+                        <Typography
+                            as="li"
+                            variant="small"
+                            color="blue-gray"
+                            className="p-1 font-medium "
+                        >
+                            <Link to={'/profile'} className=" text-black flex items-center hover:text-blue-500 transition-colors text-lg">
+                                Profile
+                            </Link>
+                       
+                        </Typography>
+                    </li>
+                
                     <li>
                         <Typography
                             as="li"
@@ -83,11 +146,25 @@ function NavList(props) {
                                 Dashboard
                             </Link>
                         </Typography>
+                    </li>
+                 <li>
+                 <Typography
+                            as="li"
+                            variant="small"
+                            color="red"
+                            className="p-1 font-medium "
+                        >
+                            <Link to={'/logout'} className=" text-black p-2 rounded-md flex items-center bg-red-400 hover:bg-red-600 transition-colors text-lg">
+                                Log out
+                            </Link>
+                        </Typography>
                  </li>
             </ul>
-        );
+        )
+      }
     }
-}
+
+
 
 function NavBar(props) {
     const [openNav, setOpenNav] = React.useState(false);

@@ -33,7 +33,7 @@ const ContextProvider = ({children}) =>{
               }
           }
         if (logged === false){
-          // navigate('/');
+          navigate('/');
         }
         console.log(logged);
     }, [logged, navigate])

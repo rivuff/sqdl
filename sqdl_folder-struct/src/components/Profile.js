@@ -4,9 +4,9 @@ import Teacher from './pfp/Teacher.js';
 
 
 
-const Profile = () => {
+const Profile = async() => {
     //cookie check
-    const userData = JSON.parse(localStorage.getItem('userInfo'));
+    const userData =await JSON.parse(localStorage.getItem('userInfo'));
     if (userData == null) { //redirect user to login page to access pfp
         window.location.href = '/login'
     }
