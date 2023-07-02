@@ -13,13 +13,14 @@ import axios from 'axios';
 
 const Student = () => {
   const userData = JSON.parse(localStorage.getItem('userInfo'));
+  const user = userData?.data?.data
   const [state, setState] = useState({
     editing: false,
-    name: userData.name,
-    email: userData.email,
-    enrollmentNumber: userData.enrollmentNumber,
-    rollNumber: userData.rollNumber,
-    type: userData.type,
+    name: user.name,
+    email: user.email,
+    enrollmentNumber: user.enrollmentNumber,
+    rollNumber: user.rollNumber,
+    type: user.type,
     errmsg: ''
   })
 
